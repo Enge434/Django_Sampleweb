@@ -1,0 +1,44 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Name: {{ patients.name }}</h1>
+  <br/>
+  <p><strong>>>> Specimen Information:</strong></p>
+  <p><strong>Specimen Type:</strong>{{ patients.specimen_type }}</p>
+  <p><strong>Other Type:</strong>{{ patients.other_type }}</p>
+  <p><strong>Collection Date:</strong>{{ patients.collectiondate }}</p>
+  <p><strong>Collection Time:</strong>{{ patients.collectiontime }}</p>
+  <p><strong>HKID:</strong> {{ patients.hkid }}</p> 
+  
+  <br/>
+  <p><strong>>>> Patient Information:</strong></p>
+  <p><strong>HKID:</strong> {{ patients.hkid }}</p> 
+  <p><strong>Ethnicity:</strong> {{ patients.ethnicity }}</p> 
+  <p><strong>Sex:</strong> {{ patients.sex }}</p>
+  <p><strong>Date of Birth:</strong> {{ patients.dob }}</p> 
+  
+  <br/>
+  <p><strong>>>> Referral Information:</strong></p>
+  <p><strong>Referral Site:</strong> {{ patients.referral }}</p>
+  <p><strong>Clinic ID:</strong> {{ patients.clinicid }}</p>
+  <p><strong>Referral Doctor:</strong> {{ patients.doctor }}</p>
+  <p><strong>Phone:</strong>{{ patients.phone }}</p>
+  <p><strong>Fax:</strong>{{ patients.fax }}</p>
+
+  <br/>
+  <p><strong>>>> Clinical Information:</strong></p>
+  <p><strong>Has preformed p-EGFR test before? </strong>{{ patients.clinic.previous }}</p>
+  <p><strong>Diagnosis of Lung Cancer:</strong>{{ patients.clinic.diagnosis }}</p>
+  <p><strong>Histological Cell Type:</strong>{{ patients.clinic.celltype }}</p>
+  <p><strong>Stage of Disease:</strong>{{ patients.clinic.stage }}</p>
+  <p><strong>Treatment Status:</strong>{{ patients.clinic.status }}</p>
+
+  <br/>
+  <p><strong>>>> Request Information:</strong></p>
+  <p><strong>Request Choice:</strong>{{ patients.clinic.request }}</p>
+  <p><a href="{% url 'json' pk=patients.id %}">View data in Json Style</a></p>
+  <p><a href="{% url 'renew_patients' pk=patients.id %}">Renew information</a></p>
+  <p><a href="{% url 'delete_patients' pk=patients.id %}">Delete this patient.</a></p>
+
+  
+{% endblock %}

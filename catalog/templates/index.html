@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Patient</h1>
+
+  <p>Welcome to <em>Report</em>, a very basic Django website developed as a tutorial example on the Mozilla Developer Network.</p>
+
+<h2>Dynamic content</h2>
+
+  <p>The Patient has following information:</p>
+  <ul>
+    <li><strong>Patients:</strong> {{ num_patients }}</li>
+    
+  </ul>
+
+{% endblock %}

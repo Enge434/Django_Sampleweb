@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Patient </h1>
+
+    {% if patients_list %}
+    <ul>
+
+      {% for patients in patients_list %}
+      <li>
+        <a href="{{ patients.get_absolute_url }}">{{ patients.name }}</a> ({{patients.referral}})
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no patients.</p>
+    {% endif %}       
+{% endblock %}

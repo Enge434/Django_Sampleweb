@@ -1,0 +1,147 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<link rel="stylesheet" href="https://cdn.webix.com/edge/webix.css" type="text/css"> 
+	<script src="https://cdn.webix.com/edge/webix.js" type="text/javascript"></script>  
+
+</head>
+<a href="{% url 'index' %}">Home</a>
+<body>
+	<style>
+		.myhover{
+			background: #FEFECE;
+		}
+
+   		
+   		.my_style .webix_column{
+        	background:#FFFFFF;
+    	}
+    	
+    	.my_style .webix_column > div{
+        	border-color:#EAEAEA;
+    	}
+
+
+		
+	</style>
+	<script type="text/javascript" charset="utf-8">
+		/*app code*/
+		var grid_data={{patients_list|safe}};
+		
+
+
+		function removeItem(){
+			if(!$$("table").getSelectedId()){
+				webix.message("No item is selected!");
+        		return; 
+	        	//'data' is an ID of the needed component
+		    }
+		    $$("table").remove($$("table").getSelectedId());
+		};
+
+		function addItem(){
+			$$("table").add({ title:"New Item", view:"text"
+
+		}, 0);
+		};
+
+		function tohome(){
+			windowObjectReference = window.open('/')
+		};
+
+		function toadd(){
+			windowObjectReference = window.open('add')
+		};
+
+
+webix.ui({
+	rows:[
+
+	{
+		css:"webix_dark",
+		view:"toolbar",
+		height:30,
+		cols:[
+		{ view: "label", label: "Aurora Onco-Telemedicine Platform", labelfont:40},
+		{ view: "button", label: "Close", autowidth: true, click:tohome}
+		]
+	},
+
+
+	{
+		view:"toolbar",
+		id:"top_toolbar",
+		css:"webix_dark",
+		elements:[
+		{
+			view:"button", value:"Add", autowidth: true, click:toadd
+		},
+
+		{
+			view:"button", value:"Delete", autowidth: true, gravity:4, click:removeItem
+		}]
+
+	},
+	
+
+	{
+		view: "datatable", 
+		css: "webix_data_border",
+		id: "table",
+		select: true,
+		hover:"myhover",
+		scroll: "xy",
+		leftSplit: 1,
+		function: true,
+		editable: true,
+		editaction: "dblclick",
+		columns:[
+		{ id:"id", header:["ID", ""], adjust:"id", colspan: 2, sort:"int"},
+		{ id:"name", header:["Name", ""], adjust:"name", sort:"string_strict", editor:"text"},
+		{ id:"specimen_type", header:["Specimen Type", {content:"selectFilter"}], adjust:"specimentype", sort: "combo", editor:"select", options:["Blood in Streck tube", "Pleural Fluid", "Others"]},
+		{ id:"other_type", header:["Other Type", {content:"textFilter"}], autowidth: true, sort: "text", editor:"text"},
+		{ id:"collectiondate", header:["Collection Date", {content:"textFilter"}], adjust:"header", sort: "date", editor:"date", format:webix.i18n.dateFormatStr}, //dateFilter not working
+		{ id:"collectiontime", header:["Collection Time", {content:"numberFilter"}], adjust:"header", sort: "string_strict", editor:"text"},
+		{ id:"hkid", header:["HKID/Passport No.", ""], adjust:"hkid", sort: "string_strict", editor:"text"},
+		{ id:"ethnicity", header:["Ethnicity", {content:"selectFilter"}], sort: "text", editor:"text"}, //editor:"select" options?
+		{ id:"sex", header:["Sex", {content:"selectFilter"}], sort: "text", editor:"select", options:["M", "F", "Prefer not to say"], adjust:"sex"},
+		{ id:"dob", header:["Date of Birth", {content:"dateFilter"}], adjust:"header", sort: "date", editor:"date", format:webix.i18n.dateFormatStr},
+		{ id:"referral", header:["Referral Site", {content:"textFilter"}], adjust:"hospitalname", sort: "text", editor:"text"},
+		{ id:"clinicid", header:["Clinic ID", {content:"textFilter"}], sort:"string_strict", editor:"text"},
+		{ id:"doctor", header:["Referral Doctor", {content:"selectFilter"}], sort:"string_strict", adjust:"doctor", editor:"text"},
+		{ id:"phone", header:["Phone", ""], editor:"text", adjust:"phone"},
+		{ id:"fax", header:["Fax", ""], editor:"text", adjust:"fax"},
+
+		],
+			data: grid_data,
+			pager:"pager",
+		},
+
+		{
+			view:"pager",
+			css:"webix_dark",
+			id:"pager",
+			size:100,
+			group:100,
+			template:"{common.first()}{common.prev()}{common.pages()}{common.next()}{common.last()}"
+		},
+
+		{
+			view: "toolbar",
+			css:"webix_dark",
+			cols:[
+			{
+				view: "button", label: "Export to Excel", autowidth: true, height:50, click:function(){
+					webix.toExcel($$("table"));
+					webix.message("Exported");
+				}
+			},
+			]
+		}
+		]
+	})
+
+</script>
+</body>
+</html>

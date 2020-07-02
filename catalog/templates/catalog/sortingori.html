@@ -1,0 +1,67 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h1>All Patients</h1>
+    <form action='' method='post'>
+        {% csrf_token %}
+        <table>
+            {{form}}
+        </table>
+        <input type='submit' value='Sort'>
+    </form>
+    <br/>
+    {% if patients_list %}
+    <br/>
+    
+    <ul>
+        <table border="3">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Referral</th>
+                <th>Specimen Type</th>
+                <th>Other Type</th>
+                <th>Collection Date</th>
+                <th>Collection Time</th>
+                <th>HKID</th>
+                <th>Ethnicity</th>
+                <th>Sex</th>
+                <th>Date of Birth</th>
+                <th>Clinic ID</th>
+                <th>Referral Doctor</th>
+                <th>Phone</th>
+                <th>Fax</th>
+                
+            </tr>
+            {% for patients in patients_list %}
+                <tr>
+                    <td>{{patients.id}}</td>
+                    <td>{{patients.name}}</td>
+                    <td>{{patients.referral}}</td>
+                    <td>{{patients.specimen_type}}</td>
+                    <td>{{patients.other_type}}</td>
+                    <td>{{patients.collectiondate}}</td>
+                    <td>{{patients.collectiontime}}</td>
+                    <td>{{patients.hkid}}</td>
+                    <td>{{patients.ethnicity}}</td>
+                    <td>{{patients.sex}}</td>
+                    <td>{{patients.dob}}</td>
+                    <td>{{patients.clinicid}}</td>
+                    <td>{{patients.doctor}}</td>
+                    <td>{{patients.phone}}</td>
+                    <td>{{patients.fax}}</td>
+                    
+                </tr>
+
+            {% endfor %}
+
+        </table>
+    </ul>
+    {% else %}
+        <p>There is no patients.</p>
+
+    {% endif %}
+
+
+
+{% endblock %}
